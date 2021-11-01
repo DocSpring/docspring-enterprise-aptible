@@ -44,14 +44,14 @@ $ aptible config:set --app "docspring-enterprise" \
 13. Add aptible as a remote and push
 ```
 git remote add aptible git@beta.aptible.com:<aptible-environment>/docspring-enterprise.git
-git push aptible main
+git push aptible master
 ```
-
 > You can find your environment name by running: `aptible environment:list`
+> If you have any problems pushing to Aptible, take a look at this troubleshooting guide: https://deploy-docs.aptible.com/docs/permission-denied-git-push
 
-14. Create an Aptible endpoint for `web`. **Make sure to set the container port to 8000**.
-15. Set your custom host url (e.g., `docspring.company.com`) using the `SETTINGS__HOST_URL` config variable
-16. We recommend setting the **RAM for each container to ~2GB** and scaling up as needed.
+14.  Create an Aptible endpoint for `web`. **Make sure to set the container port to 8000**.
+15.  Set your custom host url (e.g., `docspring.company.com`) using the `SETTINGS__HOST_URL` config variable
+16.  We recommend setting the **RAM for each container to ~2GB** and scaling up as needed.
 ```
 aptible config:set --app <app-slug> \ 
     SETTINGS__HOST_URL=<aptible-endpoint-host>
