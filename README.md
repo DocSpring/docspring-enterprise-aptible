@@ -57,6 +57,33 @@ aptible config:set --app <app-slug> \
     SETTINGS__HOST_URL=<aptible-endpoint-host>
 ```
 
+### Troubleshooting
+
+## Docker Image Authentication
+
+If you are having problems authenticating with AWS ECR to fetch the Docker image, e.g.:
+
+```
+INFO -- : Using private repository credentials from APTIBLE_PRIVATE_REGISTRY_USERNAME and APTIBLE_PRIVATE_REGISTRY_PASSWORD
+INFO -- : Fetching app image: 691950705664.dkr.ecr.us-east-1.amazonaws.com/docspring/enterprise...
+ERROR -- : unauthorized: authentication required
+```
+
+Try authenticating on your local machine using the AWS CLI and Docker and ensure this works:
+
+```bash
+export AWS_ACCESS_KEY_ID="<AWS Access Token ID>"
+export AWS_SECRET_ACCESS_KEY="<AWS Secret Access Token>"
+aws ecr get-login-password | docker login --username AWS --password-stdin "691950705664.dkr.ecr.us-east-1.amazonaws.com"
+# => Login Succeeded
+
+docker pull "691950705664.dkr.ecr.us-east-1.amazonaws.com/docspring/enterprise:latest"
+# => latest: Pulling from docspring/enterprise
+# => Digest: sha256:dac6300bf72d964a09a8069c8c9005613cb7434af0d211535158805b5d83bbd1
+# => ...
+```
+
+
 ### Database users
 
 When you ran `aptible db:create <...>`, you created a postgres database with 2 users: `postgres` and `aptible`. 
